@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+
+  gol_wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8004:80
+    environment:
+      WORDPRESS_DB_HOST: gol_db
+      WORDPRESS_DB_USER: yann
+      WORDPRESS_DB_PASSWORD: 123
+      WORDPRESS_DB_NAME: db-gol-wp
+      WORDPRESS_TABLE_PREFIX: gol_
+    volumes:
+      - /Users/golendercaria/Docker/wordpress10sec/SITE:/var/www/html/
+
+  gol_db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: db-gol-wp
+      MYSQL_USER: yann
+      MYSQL_PASSWORD: 123
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    ports:
+      - 33064:3306
+    volumes:
+      - /Users/golendercaria/Docker/wordpress10sec/DB/:/var/lib/mysql/
